@@ -1,488 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <!-- Preconnect for faster redirects -->
-    <link rel="preconnect" href="https://analytics.tiktok.com">
-    <link rel="dns-prefetch" href="//analytics.tiktok.com">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Page</title>
 
-    <title>Aritzia Rewards</title>
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- TikTok Pixel Code -->
+  <script>
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
 
-        body {
-            font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: linear-gradient(135deg, #ffffff 0%, #faf8f9 50%, #f5e6e8 100%);
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-            color: #000000;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            user-select: none;
-            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-        }
+      ttq.load('D4FJG83C77UBCCH97NQ0');
+      ttq.page();
+    }(window, document, 'ttq');
+  </script>
+  <!-- End TikTok Pixel Code -->
 
-        .canvas-container {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-        }
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;}
 
-        #particles-canvas {
-            width: 100%;
-            height: 100%;
-        }
+    body {
+      background:#0000; min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:20px; overflow:hidden; color:#2f3033;
+    }
 
-        .notification-banner {
-            position: fixed;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.98);
-            color: #000000;
-            padding: 12px 24px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 1000;
-            width: calc(100% - 2rem);
-            max-width: 360px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            animation: slideDown 0.3s ease-out;
-        }
+    #particles-js {
+      position:fixed; width:100%; height:100%; top:0; left:0; z-index:1;
+    }
 
-        .notification-icon {
-            font-size: 20px;
-        }
+    .reward-card, .step1-card {
+      background:rgba(255,255,255,0.95);
+      border-radius:24px;
+      padding:1.5rem 1.2rem;
+      max-width:420px; width:100%;
+      box-shadow:0 10px 30px #007aff1a;
+      border:1px solid #eef4ff;
+      z-index:2; position:relative;
+      backdrop-filter:blur(10px);
+      animation:cardFloat 3s ease-in-out infinite;
+    }
 
-        .notification-text {
-            font-weight: 400;
-        }
+    @keyframes cardFloat { 0%,100% { transform:translateY(0);} 50% { transform:translateY(-10px);} }
 
-        .notification-name {
-            font-weight: 600;
-        }
+    .hidden { display:none !important; }
 
-        .main-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 15px;
-            position: relative;
-            z-index: 2;
-        }
+    .step-title {
+      font-size:1.7rem; font-weight:800; text-align:center; margin-bottom:1rem; color:#000;
+    }
 
-        .card {
-            background: rgba(255, 255, 255, 0.98);
-            border-radius: 16px;
-            padding: 28px 24px;
-            max-width: 480px;
-            width: 100%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12), 0 8px 24px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(245, 230, 232, 0.5);
-            animation: cardFloat 4s ease-in-out infinite;
-        }
+    .step-btn {
+      background:#008CFF; color:white; border:none; padding:1.1rem;
+      border-radius:50px; font-weight:800; font-size:1.2rem;
+      width:100%; cursor:pointer; margin-top:1rem; text-align:center;
+      box-shadow:0 10px 80px #eef4ff;
+      transition:0.3s;
+    }
+    .step-btn:hover { transform:translateY(-4px); }
 
-        .card-header {
-            text-align: center;
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-        }
-
-        .logo {
-            width: 100%;
-            max-width: 140px;
-            height: auto;
-            display: block;
-            margin: 0 auto 12px;
-            filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.08));
-        }
-
-        .brand-name {
-            font-size: 28px;
-            font-weight: 400;
-            color: #000000;
-            letter-spacing: 8px;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-        }
-
-        .reward-amount {
-            font-size: 48px;
-            font-weight: 600;
-            color: #000000;
-            margin: 16px 0 6px;
-            letter-spacing: -1px;
-            animation: amountPulse 2.5s ease infinite;
-        }
-
-        .reward-label {
-            font-size: 14px;
-            font-weight: 400;
-            color: #666;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .instructions {
-            margin: 20px 0;
-            padding: 20px;
-            background: rgba(245, 230, 232, 0.15);
-            border-radius: 12px;
-            border: 1px solid rgba(245, 230, 232, 0.5);
-        }
-
-        .instruction-step {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 10px 0;
-            font-size: 13px;
-            color: #000000;
-            line-height: 1.5;
-        }
-
-        .step-number {
-            background: #000000;
-            color: #fff;
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 600;
-            flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        }
-
-        .step-text {
-            font-weight: 400;
-            padding-top: 2px;
-        }
-
-        .cta-button {
-            background: #000000;
-            color: #fff;
-            border: none;
-            padding: 16px 28px;
-            border-radius: 12px;
-            font-weight: 500;
-            font-size: 15px;
-            width: 100%;
-            cursor: pointer;
-            margin: 20px 0 0;
-            display: block;
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            text-decoration: none;
-            text-align: center;
-        }
-
-        .cta-button:hover {
-            background: #333333;
-            transform: translateY(-2px);
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25), 0 6px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:active {
-            transform: translateY(0);
-        }
-
-        /* Animations */
-        @keyframes slideDown {
-            from {
-                transform: translate(-50%, -100%);
-                opacity: 0;
-            }
-            to {
-                transform: translate(-50%, 0);
-                opacity: 1;
-            }
-        }
-
-        @keyframes cardFloat {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        @keyframes amountPulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.03);
-            }
-        }
-
-        /* Mobile optimizations */
-        @media screen and (max-width: 768px) {
-            .card {
-                padding: 24px 20px;
-                margin: 0;
-            }
-
-            .brand-name {
-                font-size: 24px;
-                letter-spacing: 6px;
-            }
-
-            .reward-amount {
-                font-size: 42px;
-            }
-
-            .instructions {
-                padding: 16px;
-                margin: 16px 0;
-            }
-
-            .main-container {
-                padding: 12px;
-            }
-
-            .card-header {
-                margin-bottom: 16px;
-                padding-bottom: 12px;
-            }
-
-            .instruction-step {
-                padding: 8px 0;
-                font-size: 12px;
-            }
-
-            .cta-button {
-                margin: 16px 0 0;
-                padding: 14px 24px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            .brand-name {
-                font-size: 22px;
-                letter-spacing: 5px;
-            }
-
-            .reward-amount {
-                font-size: 38px;
-                margin: 12px 0 4px;
-            }
-
-            .reward-label {
-                font-size: 12px;
-            }
-
-            .cta-button {
-                padding: 14px 20px;
-                font-size: 14px;
-            }
-
-            .logo {
-                max-width: 120px;
-            }
-        }
-
-        @media screen and (max-height: 700px) {
-            .card {
-                padding: 20px 18px;
-            }
-
-            .card-header {
-                margin-bottom: 12px;
-                padding-bottom: 10px;
-            }
-
-            .reward-amount {
-                font-size: 36px;
-                margin: 10px 0 4px;
-            }
-
-            .instructions {
-                margin: 14px 0;
-                padding: 14px;
-            }
-
-            .instruction-step {
-                padding: 6px 0;
-                font-size: 12px;
-            }
-
-            .cta-button {
-                margin: 14px 0 0;
-                padding: 12px 20px;
-                font-size: 13px;
-            }
-
-            .logo {
-                max-width: 100px;
-                margin: 0 auto 8px;
-            }
-        }
-    </style>
+    .app-logo-container {
+      text-align:center; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid #007aff1a;
+    }
+    .app-logo { width:200px; display:block; margin:auto; }
+    .amount { font-size:2.5rem; font-weight:700; text-align:center; color:#008CFF; }
+    .amount-subtext { text-align:center; font-size:1.3rem; margin-bottom:1rem; color:#000; }
+    .instructions-container { margin:1.2rem auto; padding:1rem; background:#007aff0d; border-radius:16px; border:1px solid #008CFF; }
+    .instruction-item { display:flex; align-items:center; gap:12px; padding:10px 0; font-size:1rem; color:#000; font-weight:600; }
+    .number { background:#008CFF; color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
+    .claim-button {
+      background:#008CFF; color:white; border:none; padding:1.1rem; border-radius:50px;
+      font-weight:800; font-size:1.2rem; width:100%; margin-top:1rem; text-align:center;
+      display:block; box-shadow:0 10px 80px #eef4ff;
+      transition:0.3s; text-decoration:none;
+    }
+    .claim-button:hover { transform:translateY(-4px);}
+  </style>
 </head>
 
 <body>
-    <div class="canvas-container">
-        <canvas id="particles-canvas"></canvas>
+  <canvas id="particles-js"></canvas>
+
+  <!-- STEP 1 -->
+  <div id="step1" class="step1-card">
+    <div class="step-title">Quick Eligibility Check</div>
+
+    <p style="font-size:1.1rem; text-align:center; margin-bottom:1rem;">
+      Are you at least 18 years old?
+    </p>
+
+    <button class="step-btn" onclick="goToStep2()">Yes, Continue →</button>
+  </div>
+
+  <!-- STEP 2 -->
+  <div id="step2" class="reward-card hidden">
+    <div class="app-logo-container">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Venmo_Logo.svg/1280px-Venmo_Logo.svg.png" class="app-logo" />
     </div>
 
-    <div class="notification-banner">
-        <span class="notification-icon">✨</span>
-        <div class="notification-text">
-            <span class="notification-name">Sarah M.</span> claimed $500!
-        </div>
+    <div class="amount"><span id="currency-symbol">$</span><span id="counter">0.00</span></div>
+    <div class="amount-subtext">Instantly sent to you</div>
+
+    <div class="instructions-container">
+      <div class="instruction-item"><span class="number">1</span><span>Click the "Sign Up" to start</span></div>
+      <div class="instruction-item"><span class="number">2</span><span>Provide a valid email adress</span></div>
+      <div class="instruction-item"><span class="number">3</span><span>Complete 3-5 recommended deals</span></div>
+      <div class="instruction-item"><span class="number">4</span><span>Start recieving your Venmo payments</span></div>
     </div>
 
-    <div class="main-container">
-        <div class="card">
-            <div class="card-header">
-                <img alt="Aritzia Rewards" class="logo" src="https://cdn.worldvectorlogo.com/logos/aritzia-logo-2017-.svg" />
-                <div class="brand-name"></div>
-            </div>
+    <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609&source=2nd" class="claim-button" onclick="trackSignUpClick(event)">Sign Up</a>
+  </div>
 
-            <div style="text-align: center;">
-                <div class="reward-amount">$500.00</div>
-                <div class="reward-label">Rewards</div>
-            </div>
+<script>
+  function goToStep2() {
+    document.getElementById("step1").classList.add("hidden");
+    document.getElementById("step2").classList.remove("hidden");
+    
+    // Track page view event
+    if (typeof ttq !== 'undefined') {
+      ttq.track('ViewContent');
+    }
+    
+    detectCurrency();
+  }
 
-            <div class="instructions">
-                <div class="instruction-step">
-                    <span class="step-number">1</span>
-                    <span class="step-text">Click The Button Below</span>
-                </div>
-                <div class="instruction-step">
-                    <span class="step-number">2</span>
-                    <span class="step-text">Enter Your Basic Info</span>
-                </div>
-                <div class="instruction-step">
-                    <span class="step-number">3</span>
-                    <span class="step-text">Complete Required Offers</span>
-                </div>
-                <div class="instruction-step">
-                    <span class="step-number">4</span>
-                    <span class="step-text">Claim Your $500 Aritzia Gift Card</span>
-                </div>
-            </div>
+  function trackSignUpClick(event) {
+    // Track the click event
+    if (typeof ttq !== 'undefined') {
+      ttq.track('ClickButton', {
+        content_name: 'Sign Up Button',
+        content_category: 'CTA'
+      });
+      
+      // Track as InitiateCheckout since it's leading to signup
+      ttq.track('InitiateCheckout');
+    }
+    
+    // Let the link proceed normally
+    return true;
+  }
 
-            <a href="https://gloffers.org/aff_c?offer_id=623&aff_id=2609&source=ads" target="_blank" style="text-decoration: none;">
-                <button class="cta-button">Get $500 Now →</button>
-            </a>
-        </div>
-    </div>
+  function animateValue(element, start, end, duration) {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      const currentValue = progress * (end - start) + start;
+      element.textContent = currentValue.toFixed(2);
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  }
 
-    <script>
-        // Particle animation
-        const canvas = document.getElementById('particles-canvas');
-        const ctx = canvas.getContext('2d');
+  function detectCurrency() {
+    const counterElement = document.getElementById('counter');
+    animateValue(counterElement, 0, 1000, 2000);
+  }
+</script>
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const particles = [];
-        const particleCount = 40;
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.opacity = Math.random() * 0.3 + 0.1;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x > canvas.width) this.x = 0;
-                if (this.x < 0) this.x = canvas.width;
-                if (this.y > canvas.height) this.y = 0;
-                if (this.y < 0) this.y = canvas.height;
-            }
-
-            draw() {
-                ctx.fillStyle = `rgba(0, 0, 0, ${this.opacity})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function init() {
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            particles.forEach(particle => {
-                particle.update();
-                particle.draw();
-            });
-
-            requestAnimationFrame(animate);
-        }
-
-        init();
-        animate();
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Show notification banner periodically
-        const banner = document.querySelector('.notification-banner');
-        const names = [
-            'Sarah M.', 'Jessica L.', 'Emily R.', 'Ashley K.',
-            'Madison T.', 'Taylor S.', 'Morgan B.', 'Jordan P.'
-        ];
-
-        function showNotification() {
-            const randomName = names[Math.floor(Math.random() * names.length)];
-            banner.querySelector('.notification-name').textContent = randomName;
-            banner.style.display = 'flex';
-
-            setTimeout(() => {
-                banner.style.display = 'none';
-            }, 4000);
-        }
-
-        // Show first notification after 2 seconds
-        setTimeout(showNotification, 2000);
-
-        // Then show every 8 seconds
-        setInterval(showNotification, 8000);
-    </script>
 </body>
-
 </html>
