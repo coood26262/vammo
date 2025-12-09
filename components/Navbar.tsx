@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
             <img 
               src="/venmo-logo.png" 
               alt="Venmo" 
-              className="h-6 w-auto"
+              className="h-7 w-auto"
             />
           </div>
           <div className="flex items-center gap-6">
