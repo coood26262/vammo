@@ -1,160 +1,379 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>Page</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Venmo Lander</title>
 
-  <!-- TikTok Pixel Code -->
-  <script>
-    !function (w, d, t) {
-      w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var i="https://analytics.tiktok.com/i18n/pixel/events.js";ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=i,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=i+"?sdkid="+e+"&lib="+t;var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)};
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
 
-      ttq.load('D4PGQERC77U6HORAR5P0');
-      ttq.page();
-    }(window, document, 'ttq');
-  </script>
-  <!-- End TikTok Pixel Code -->
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at top, #e0f2ff 0, #f5f7fb 45%, #ffffff 100%);
+            color: #2f3033;
+        }
 
-  <style>
-    * { margin:0; padding:0; box-sizing:border-box; font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;}
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            inset: 0;
+            pointer-events: none;
+            z-index: 1;
+        }
 
-    body {
-      background:#0000; min-height:100vh; display:flex; align-items:center; justify-content:center;
-      padding:20px; overflow:hidden; color:#2f3033;
-    }
+        .reward-card,
+        .step1-card {
+            background: #ffffff;
+            border-radius: 28px;
+            padding: 1.8rem 1.5rem 1.5rem;
+            max-width: 420px;
+            width: 100%;
+            box-shadow:
+                0 18px 45px rgba(15, 23, 42, 0.12),
+                0 0 0 1px rgba(148, 163, 184, 0.16);
+            border: 1px solid rgba(148, 163, 184, 0.25);
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(12px);
+            animation: cardFloat 5s ease-in-out infinite;
+        }
 
-    #particles-js {
-      position:fixed; width:100%; height:100%; top:0; left:0; z-index:1;
-    }
+        @keyframes cardFloat {
 
-    .reward-card, .step1-card {
-      background:rgba(255,255,255,0.95);
-      border-radius:24px;
-      padding:1.5rem 1.2rem;
-      max-width:420px; width:100%;
-      box-shadow:0 10px 30px #007aff1a;
-      border:1px solid #eef4ff;
-      z-index:2; position:relative;
-      backdrop-filter:blur(10px);
-      animation:cardFloat 3s ease-in-out infinite;
-    }
+            0%,
+            100% {
+                transform: translateY(0);
+            }
 
-    @keyframes cardFloat { 0%,100% { transform:translateY(0);} 50% { transform:translateY(-10px);} }
+            50% {
+                transform: translateY(-8px);
+            }
+        }
 
-    .hidden { display:none !important; }
+        .hidden {
+            display: none !important;
+        }
 
-    .step-title {
-      font-size:1.7rem; font-weight:800; text-align:center; margin-bottom:1rem; color:#000;
-    }
+        .step-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 0.75rem;
+            color: #000;
+        }
 
-    .step-btn {
-      background:#008CFF; color:white; border:none; padding:1.1rem;
-      border-radius:50px; font-weight:800; font-size:1.2rem;
-      width:100%; cursor:pointer; margin-top:1rem; text-align:center;
-      box-shadow:0 10px 80px #eef4ff;
-      transition:0.3s;
-    }
-    .step-btn:hover { transform:translateY(-4px); }
+        .step-subtitle {
+            font-size: 1rem;
+            text-align: center;
+            color: #4b5563;
+            margin-bottom: 1.2rem;
+        }
 
-    .app-logo-container {
-      text-align:center; margin-bottom:1rem; padding-bottom:1rem; border-bottom:1px solid #007aff1a;
-    }
-    .app-logo { width:200px; display:block; margin:auto; }
-    .amount { font-size:2.5rem; font-weight:700; text-align:center; color:#008CFF; }
-    .amount-subtext { text-align:center; font-size:1.3rem; margin-bottom:1rem; color:#000; }
-    .instructions-container { margin:1.2rem auto; padding:1rem; background:#007aff0d; border-radius:16px; border:1px solid #008CFF; }
-    .instruction-item { display:flex; align-items:center; gap:12px; padding:10px 0; font-size:1rem; color:#000; font-weight:600; }
-    .number { background:#008CFF; color:white; width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; }
-    .claim-button {
-      background:#008CFF; color:white; border:none; padding:1.1rem; border-radius:50px;
-      font-weight:800; font-size:1.2rem; width:100%; margin-top:1rem; text-align:center;
-      display:block; box-shadow:0 10px 80px #eef4ff;
-      transition:0.3s; text-decoration:none;
-    }
-    .claim-button:hover { transform:translateY(-4px);}
-  </style>
+        .step-btn {
+            background: linear-gradient(135deg, #0095ff, #0075ff);
+            color: white;
+            border: none;
+            padding: 1.1rem;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            width: 100%;
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 18px 52px rgba(37, 99, 235, 0.45);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+        }
+
+        .step-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 60px rgba(37, 99, 235, 0.6);
+            filter: brightness(1.05);
+        }
+
+        .app-logo-container {
+            text-align: center;
+            margin-bottom: 1.1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(148, 163, 184, 0.35);
+        }
+
+        .app-logo {
+            width: 150px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            color: #008CFF;
+            margin-top: 0.4rem;
+        }
+
+        .amount-subtext {
+            text-align: center;
+            font-size: 1.05rem;
+            margin-bottom: 1rem;
+            color: #4b5563;
+        }
+
+        .instructions-container {
+            margin: 1.2rem auto 1.6rem;
+            padding: 1rem 1.1rem;
+            background: #f1f6ff;
+            border-radius: 18px;
+            border: 1px solid #bfd7ff;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 6px 0;
+            font-size: 0.96rem;
+            color: #111827;
+            font-weight: 500;
+        }
+
+        .number {
+            background: #008CFF;
+            color: white;
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.45);
+        }
+
+        .claim-button {
+            background: linear-gradient(135deg, #0095ff, #0075ff);
+            color: white;
+            border: none;
+            padding: 1.15rem;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 1.15rem;
+            width: 100%;
+            text-align: center;
+            display: block;
+            margin-top: 0.35rem;
+            cursor: pointer;
+            box-shadow: 0 8px 12px rgba(37, 99, 235, 0.45);
+            text-decoration: none;
+        }
+
+        .claim-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 60px rgba(37, 99, 235, 0.6);
+            filter: brightness(1.05);
+        }
+
+        .stats-bar {
+            padding: 1rem 1.3rem;
+            border-radius: 30;
+            background: radial-gradient(circle at top left, #ffffff, #ffffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.8rem;
+            color: #00000;
+            width: 100%;
+            margin-top: 1.4rem;
+        }
+
+        .stat {
+            flex: 0 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 0.5rem;
+            opacity: 0.65;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        .stat-value {
+            font-size: 0.85rem;
+            font-weight: 900;
+            margin-top: 1px;
+        }
+
+        .stat-sub {
+            font-size: 0.45rem;
+            opacity: 0.7;
+            margin-top: 2px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 38px;
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        footer {
+            font-size: 0.65rem;
+            opacity: 0.65;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(148, 163, 184, 0.25);
+            color: #4b5563;
+        }
+
+        @media (max-width:480px) {
+
+            .reward-card,
+            .step1-card {
+                padding: 1.6rem 1.2rem 1.5rem;
+            }
+
+            .stats-bar {
+                padding: 0.9rem 1rem;
+                gap: 1rem;
+            }
+
+            .stat-label {
+                font-size: 0.45rem;
+            }
+
+            .stat-value {
+                font-size: 0.75rem;
+            }
+
+            .stat-sub {
+                font-size: 0.4rem;
+            }
+
+            .stat-divider {
+                height: 32px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-  <canvas id="particles-js"></canvas>
+    <canvas id="particles-js"></canvas>
 
-  <!-- STEP 1 -->
-  <div id="step1" class="step1-card">
-    <div class="step-title">Quick Eligibility Check</div>
-
-    <p style="font-size:1.1rem; text-align:center; margin-bottom:1rem;">
-      Are you at least 18 years old?
-    </p>
-
-    <button class="step-btn" onclick="goToStep2()">Yes, Continue →</button>
-  </div>
-
-  <!-- STEP 2 -->
-  <div id="step2" class="reward-card hidden">
-    <div class="app-logo-container">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Venmo_Logo.svg/1280px-Venmo_Logo.svg.png" class="app-logo" />
+    <!-- STEP 1: Quick eligibility -->
+    <div id="step1" class="step1-card">
+        <div class="step-title">Quick Eligibility Check</div>
+        <p class="step-subtitle">
+            Are you atleast 18 years old?
+        </p>
+        <button class="step-btn" onclick="goToStep2()">Yes, Continue →</button>
     </div>
 
-    <div class="amount"><span id="currency-symbol">$</span><span id="counter">0.00</span></div>
-    <div class="amount-subtext">Instantly sent to you</div>
+    <!-- STEP 2: Main lander -->
+    <div id="step2" class="reward-card hidden">
+        <div class="app-logo-container">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Venmo_Logo.svg/1280px-Venmo_Logo.svg.png" class="app-logo" alt="Venmo" />
+        </div>
 
-    <div class="instructions-container">
-      <div class="instruction-item"><span class="number">1</span><span>Click the "Sign Up" to start</span></div>
-      <div class="instruction-item"><span class="number">2</span><span>Provide a valid email adress</span></div>
-      <div class="instruction-item"><span class="number">3</span><span>Complete 3-5 recommended deals</span></div>
-      <div class="instruction-item"><span class="number">4</span><span>Start recieving your Venmo payments</span></div>
+        <div class="amount">
+            <span id="currency-symbol">$</span><span id="counter">0.00</span>
+        </div>
+        <div class="amount-subtext">Instantly sent to you</div>
+
+        <div class="instructions-container">
+            <div class="instruction-item">
+                <span class="number">1</span>
+                <span>Click "Sign Up" to start</span>
+            </div>
+            <div class="instruction-item">
+                <span class="number">2</span>
+                <span>Enter a valid email address</span>
+            </div>
+            <div class="instruction-item">
+                <span class="number">3</span>
+                <span>Complete 3–5 recommended deals</span>
+            </div>
+            <div class="instruction-item">
+                <span class="number">4</span>
+                <span>Start receiving your Venmo payments</span>
+            </div>
+        </div>
+
+        <!-- Sign Up button FIRST -->
+        <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609" class="claim-button">
+            Sign Up
+        </a>
+
+        <!-- Stats bar UNDER the button -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-label">Total Paid</div>
+                <div class="stat-value">
+                    $<span id="total-paid-number">8.3</span> Million
+                </div>
+                <div class="stat-sub">sent to members</div>
+            </div>
+
+            <div class="stat-divider"></div>
+
+            <div class="stat">
+                <div class="stat-label">Trusted By</div>
+                <div class="stat-value">
+                    <span id="trusted-users-number">1</span> Million+
+                </div>
+                <div class="stat-sub">verified users</div>
+            </div>
+        </div>
+        
+        <footer>
+            Copyright VenmnoRewards 2025. All rights reserved.
+        </footer>
     </div>
 
-    <a href="https://glitchy.go2cloud.org/aff_c?offer_id=2862&aff_id=2609" class="claim-button" onclick="trackSignUpClick(event)">Sign Up</a>
-  </div>
+    <script>
+        function goToStep2() {
+            document.getElementById("step1").classList.add("hidden");
+            document.getElementById("step2").classList.remove("hidden");
+            startAnimations();
+        }
 
-<script>
-  function goToStep2() {
-    document.getElementById("step1").classList.add("hidden");
-    document.getElementById("step2").classList.remove("hidden");
-    
-    // Track page view event
-    if (typeof ttq !== 'undefined') {
-      ttq.track('ViewContent');
-    }
-    
-    detectCurrency();
-  }
+        function animateValue(element, start, end, duration, decimals) {
+            let startTime = null;
+            const step = (timestamp) => {
+                if (!startTime) startTime = timestamp;
+                const progress = Math.min((timestamp - startTime) / duration, 1);
+                const value = start + (end - start) * progress;
+                element.textContent = value.toFixed(decimals);
+                if (progress < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+        }
 
-  function trackSignUpClick(event) {
-    // Track the click event
-    if (typeof ttq !== 'undefined') {
-      ttq.track('ClickButton', {
-        content_name: 'Sign Up Button',
-        content_category: 'CTA'
-      });
-      
-      // Track as InitiateCheckout since it's leading to signup
-      ttq.track('InitiateCheckout');
-    }
-    
-    // Let the link proceed normally
-    return true;
-  }
+        function startAnimations() {
+            // Main payout amount (change 1000 to whatever you want)
+            animateValue(document.getElementById("counter"), 0, 1000, 1800, 2);
 
-  function animateValue(element, start, end, duration) {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      const currentValue = progress * (end - start) + start;
-      element.textContent = currentValue.toFixed(2);
-      if (progress < 1) window.requestAnimationFrame(step);
-    };
-    window.requestAnimationFrame(step);
-  }
-
-  function detectCurrency() {
-    const counterElement = document.getElementById('counter');
-    animateValue(counterElement, 0, 1000, 2000);
-  }
-</script>
-
+            // If you want these to animate instead of just show, uncomment below:
+            // animateValue(document.getElementById("total-paid-number"), 0, 88, 1400, 0);
+            // animateValue(document.getElementById("trusted-users-number"), 0, 17, 1400, 0);
+        }
+    </script>
 </body>
+
 </html>
