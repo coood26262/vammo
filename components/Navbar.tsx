@@ -2,51 +2,26 @@ import React from 'react';
 
 export const Navbar: React.FC = () => {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0a0a]/95 backdrop-blur-sm border-b border-white/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <div className="flex items-center">
-            <img
-              src="/logo.png"
-              alt="Playful Rewards"
-              className="h-7 w-auto"
-              onError={(e) => {
-                // Fallback to SVG then text if PNG fails to load
-                const img = e.currentTarget as HTMLImageElement;
-                if (img.src.includes('logo.png')) {
-                  img.src = '/logo.svg';
-                } else {
-                  img.style.display = 'none';
-                  const parent = img.parentElement;
-                  if (parent) {
-                    parent.innerHTML = '<h1 class="text-lg font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-purple-600 bg-clip-text text-transparent">PLAYFUL REWARDS</h1>';
-                  }
-                }
-              }}
-            />
+            <span className="text-3xl font-bold text-blue-500" style={{ fontFamily: 'Arial, sans-serif' }}>
+              venmo
+            </span>
           </div>
-
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-8">
-            <a href="#overview" className="text-slate-300 hover:text-white text-sm font-medium transition-colors">
-              Overview
-            </a>
-            <a href="#how-it-works" className="text-slate-300 hover:text-white text-sm font-medium transition-colors">
-              How it works
-            </a>
-            <a href="#faq" className="text-slate-300 hover:text-white text-sm font-medium transition-colors">
-              FAQ
-            </a>
-          </div>
-
-          {/* Download Button */}
-          <div>
+          <div className="flex items-center gap-6">
             <a
-              href="https://trkio.org/aff_c?offer_id=2691&aff_id=15664&source=playfulads"
-              className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg text-sm font-bold transition-all active:scale-95 transform duration-100"
+              href="#"
+              className="text-gray-600 hover:text-blue-500 transition-colors text-sm font-medium"
             >
-              Download
+              How It Works
+            </a>
+            <a
+              href="#"
+              className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full text-sm font-bold transition-all shadow-md hover:shadow-lg"
+            >
+              Get Started
             </a>
           </div>
         </div>
