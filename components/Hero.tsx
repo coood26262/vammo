@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const Hero: React.FC = () => {
-  const [showAgeGate, setShowAgeGate] = useState(true);
-
   // Determine affiliate link based on URL path
   const getAffiliateLink = () => {
     if (typeof window !== 'undefined') {
@@ -15,36 +13,6 @@ export const Hero: React.FC = () => {
   };
 
   const affiliateLink = getAffiliateLink();
-
-  // Age gate overlay
-  if (showAgeGate) {
-    return (
-      <div className="fixed inset-0 bg-black z-50 flex items-center justify-center p-4">
-        <div className="bg-gray-800 rounded-2xl p-8 max-w-md w-full">
-          <h2 className="text-2xl font-bold text-white text-center mb-4">
-            Age Verification
-          </h2>
-          <p className="text-gray-300 text-center mb-6">
-            Are you over 18 years of age?
-          </p>
-          <div className="space-y-3">
-            <button
-              onClick={() => setShowAgeGate(false)}
-              className="w-full bg-[#008CFF] hover:bg-[#0077D9] text-white font-bold py-4 rounded-xl transition-all"
-            >
-              Yes, I am over 18
-            </button>
-            <button
-              onClick={() => window.location.href = 'https://www.google.com'}
-              className="w-full bg-gray-700 hover:bg-gray-600 text-gray-300 font-semibold py-4 rounded-xl transition-all"
-            >
-              No, I am under 18
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 overflow-hidden pb-12">
