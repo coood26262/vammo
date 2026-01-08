@@ -21,12 +21,6 @@ export const Hero: React.FC = () => {
         <div className="max-w-xl mx-auto">
           {/* Main Card */}
           <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8">
-            {/* Zelle Logo - Centered */}
-            <div className="text-center mb-6">
-              <img 
-                src="/zelle-logo.png" 
-                alt="Zelle" 
-                className="h-18 w-auto mx-auto"
               />
             </div>
 
