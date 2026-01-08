@@ -21,9 +21,6 @@ export const Hero: React.FC = () => {
         <div className="max-w-xl mx-auto">
           {/* Main Card */}
           <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8">
-              />
-            </div>
-
             {/* Amount */}
             <div className="text-center mb-6">
               <div className="text-4xl sm:text-5xl font-bold text-[#6D1ED4] mb-1">
