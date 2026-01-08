@@ -6,10 +6,10 @@ export const Hero: React.FC = () => {
     if (typeof window !== 'undefined') {
       const path = window.location.pathname;
       if (path === '/ca' || path === '/ca/') {
-        return 'https://trkfy.org/aff_c?offer_id=2862&aff_id=2609';
+        return 'https://trkfy.org/aff_c?offer_id=2957&aff_id=15664&source=playfulCA';
       }
     }
-    return 'https://trkfy.org/aff_c?offer_id=2862&aff_id=2609';
+    return 'https://trkio.org/aff_c?offer_id=2691&aff_id=15664&source=playfulads';
   };
 
   const affiliateLink = getAffiliateLink();
@@ -21,8 +21,6 @@ export const Hero: React.FC = () => {
         <div className="max-w-xl mx-auto">
           {/* Main Card */}
           <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8">
-            {/* NO Venmo text here - removed! */}
-
             {/* Amount */}
             <div className="text-center mb-6">
               <div className="text-4xl sm:text-5xl font-bold text-[#6D1ED4] mb-1">
@@ -72,7 +70,7 @@ export const Hero: React.FC = () => {
                   });
                 }
               }}
-              className="block w-full bg-[#6D1ED4] hover:bg-[#5A18B0] text-white font-bold text-lg py-4 rounded-full transition-all shadow-lg hover:shadow-xl active:scale-95 transform duration-100 text-center"
+              className="block w-full bg-[#6D1ED4] hover:bg-[#5A19B0] text-white font-bold text-lg py-4 rounded-full transition-all shadow-lg hover:shadow-xl active:scale-95 transform duration-100 text-center"
             >
               Sign Up
             </a>
@@ -138,7 +136,7 @@ export const Hero: React.FC = () => {
                   });
                 }
               }}
-              className="block w-full bg-[#6D1ED4] hover:bg-[#5A18B0] text-white font-bold text-base px-12 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl active:scale-95 transform duration-100 text-center mt-6"
+              className="block w-full bg-[#6D1ED4] hover:bg-[#5A19B0] text-white font-bold text-base px-12 py-3.5 rounded-full transition-all shadow-lg hover:shadow-xl active:scale-95 transform duration-100 text-center mt-6"
             >
               Get Started Now
             </a>
