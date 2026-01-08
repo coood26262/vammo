@@ -7,12 +7,12 @@ export const Navbar: React.FC = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
             <img 
-              src="/venmo-logo.png" 
-              alt="Venmo" 
+              src="/zelle-logo.png" 
+              alt="Zelle" 
               className="h-7 w-auto"
             />
           </div>
-          {/* No "Get Started" button - removed */}
+          {/* No button */}
         </div>
       </div>
     </nav>
