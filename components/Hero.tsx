@@ -26,7 +26,7 @@ export const Hero: React.FC = () => {
               <img 
                 src="/zelle-logo.png" 
                 alt="Zelle" 
-                className="h-8 w-auto mx-auto"
+                className="h-18 w-auto mx-auto"
               />
             </div>
 
