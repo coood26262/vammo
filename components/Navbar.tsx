@@ -8,7 +8,7 @@ export const Navbar: React.FC = () => {
           <img 
             src="/zelle-logo.png" 
             alt="Zelle" 
-            className="h-8 w-auto"
+            className="h-10 w-auto"
           />
         </div>
       </div>
